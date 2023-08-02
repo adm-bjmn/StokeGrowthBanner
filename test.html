@@ -50,13 +50,21 @@
 
             <div class="filter-option">
                 <div class="select-button">
-                    <span class="button-text">Sort by</span>
+                    <span class="button-text">Sort by:</span>
                     <span class="arrow-dwn">
                         <i class="fa-solid fa-chevron-down"></i>
                     </span>
                 </div>
                 <ul class="options-list" id="sort-by-list">
                     <!-- List options will go here  -->
+                    <li class="sorting-option" id="A-Z">
+                        <span class="checkbox">
+                            <i class="fa-solid fa-check check-icon"></i>
+                        </span>
+                        <span class="option-text">
+                            A - Z
+                        </span>
+                    </li>
                 </ul>
             </div>
 
@@ -200,38 +208,110 @@
 
 
     <!-- JS GOES SEPARATE -->
+
     <script>
 
 
         // Collect all the buttons for the dropdowns
         const selectBtn = document.querySelectorAll('.select-button');
-        loopItems = document.querySelectorAll('.enterprise_space')
-        console.log(loopItems)
+        // collect all the loop items to be included in filter
+        const loopItems = document.querySelectorAll('.enterprise_space')
 
-        listsOptions = document.querySelectorAll('.options-list');
-        console.log(listsOptions)
+        // collect all of the options list to populate with options
+        const listsOptions = document.querySelectorAll('.options-list');
 
-        // Step 1: Extract classes starting with "amenities-", "property_type-", and "sizes-"
+        // sorting Logic
+        const sortingOptions = document.querySelectorAll('.sorting-option');
+        sortingOptions.forEach((option) => {
+            option.addEventListener("click", () => {
+                // Remove the 'sorting' class from all elements except the clicked one
+                sortingOptions.forEach((otherOption) => {
+                    if (otherOption !== option) {
+                        otherOption.classList.remove('sorting');
+                    }
+                });
 
+                // Toggle the 'sorting' class on the clicked element
+                option.classList.toggle('sorting');
+                const sortCriteria = document.querySelector('.sorting')
+                if (sortCriteria) {
+                    sortLoopItems(sortCriteria.id)
+                }
+            });
+        });
+
+        function sortLoopItems(id) {
+            console.log(id)
+
+
+            const sortByDate = (a, b) => {
+                const dateA = new Date(a.querySelector('[itemprop="datePublished"]').innerText);
+                const dateB = new Date(b.querySelector('[itemprop="datePublished"]').innerText);
+                return dateA - dateB;
+            };
+
+            const renderSortedDivs = (sortedDivs) => {
+                const elementorLoopContainer = document.querySelector('.elementor-loop-container');
+                if (elementorLoopContainer) {
+                    let val = 'container found'
+                    return val
+                } else {
+                    let val = 'not found'
+                    return val
+                }
+                // elementorLoopContainer.innerHTML = ''; // Clear the container
+                // sortedDivs.forEach((div) => {
+                //   elementorLoopContainer.appendChild(div);
+                // }); 
+            };
+
+            // === SORT BY DATE === //
+            if (id == 'Date') {
+                console.log('sort by date')
+                // TESTING ITEMS //
+                // loopItems.forEach((item) => {
+                //     const datePublished = item.querySelector('[itemprop="datePublished"]').innerText;
+                // })
+
+                // SORTING LOGIC //
+                const sortedByDate = Array.from(loopItems).sort(sortByDate);
+                console.log(sortedByDate)
+                console.log(renderSortedDivs(sortedByDate));
+
+            } else if (id == 'A-Z') {
+                console.log('Sort Aphabetically')
+            }
+
+
+        }
+
+        //create a list for each filter type
         const amenitiesList = [];
         const propertyTypeList = [];
         const sizesList = [];
 
+        // for each loop item, inspect the class names and get any
+        // relevent to the filter ie: property_type-foo and add unique 
+        // values to relevant lists as objects with a human readable name the class name as is. 
         loopItems.forEach((item) => {
+            // go over each class name and if it starts with the filter Reference then grab the suffix
             const classes = item.classList;
             for (let i = 0; i < classes.length; i++) {
                 const className = classes[i];
                 if (className.startsWith('amenities-')) {
+                    // create object
                     const optionObject = {
                         optionClass: className,
                         optionText: className.substring('amenities-'.length).replace(/-/g, ' '),
                     }
+                    // check if object exists in array if not then add it.
                     const isOptionExists = amenitiesList.some((item) => item.optionText === optionObject.optionText);
                     if (!isOptionExists) {
                         amenitiesList.push(optionObject);
 
                     }
 
+                    // repeat for all filter criteria
                 } else if (className && className.startsWith('property_type-')) {
                     const optionObject = {
                         optionClass: className,
@@ -256,8 +336,11 @@
             }
         });
 
+
         // Create new <li> items for each filter option
         const createOptionListItem = (option) => {
+            // this fuction takes an option object and creates a list item with
+            // appropriate id and display text.
             const li = document.createElement('li');
             li.classList.add('option');
             li.innerHTML = `
@@ -270,8 +353,9 @@
             return li;
         };
 
-        // Append new <li> items to the options lists in your HTML
+        // Append new <li> items to the options lists in HTML
         const appendOptionsToElement = (optionsList, optionItems) => {
+            //takes the id of the list html element and the list of objects
             const ulElement = document.getElementById(optionsList);
             optionItems.forEach((option) => {
                 ulElement.appendChild(createOptionListItem(option));
@@ -282,7 +366,7 @@
         appendOptionsToElement('property-type-list', propertyTypeList);
         appendOptionsToElement('amenities-list', amenitiesList);
         appendOptionsToElement('size-list', sizesList);
-        // Append other lists in a similar way (e.g., appendOptionsToElement('amenities-list', amenitiesList);)
+
 
         const options = document.querySelectorAll('.option');
 
@@ -293,43 +377,51 @@
         selectBtn.forEach((catagory, index) => {
             catagory.addEventListener("click", () => {
                 // if clicked add or remove a class 'open'
+                // open shows the child element
                 catagory.classList.toggle('open');
             });
         });
 
-        // for each option 
+        // for each option if clicked then add it to a list of filter criteria
         options.forEach((option, index) => {
             option.addEventListener("click", () => {
-                // if clicked add or remove a class 'open'
+                // if clicked add or remove a class 'ticked'
                 option.classList.toggle('ticked');
 
-                // update tiecked criteria
+                // update ticked criteria
                 tickedCriteria = document.querySelectorAll('.ticked')
-                console.log(tickedCriteria)
+                // if someone clicks an option the slate is whipped clean
+                // to ensure each pass is accurate.
                 loopItems.forEach((item) => {
                     item.classList.remove('hidden')
                 });
+                // re add hidden class based on new list
                 handleTicked(tickedCriteria)
             });
         });
 
 
         function handleTicked(tickedCriteria) {
+            // takes tickedCriteria list and adds hidden to loop items that 
+            // DONT meet the critera. 
             tickedCriteria.forEach((ticked) => {
                 const childDivs = ticked.children
                 tickedID = childDivs[0].id
                 console.log(tickedID)
+                // for each ticked item. if any cards in the loopitems do not contain this class then add a a class of hidden to the card
                 loopItems.forEach((item) => {
                     if (!item.classList.contains(tickedID)) {
                         item.classList.add('hidden')
                     }
                 });
             })
-            // for each ticked item. if any cards in the loopitems do not contain this class then add a a class of hidden to the card
+
         }
 
 
     </script>
+
+
 
 
 
