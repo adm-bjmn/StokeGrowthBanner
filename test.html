@@ -210,6 +210,7 @@
     <!-- JS GOES SEPARATE -->
 
 
+
     <script>
 
 
@@ -222,10 +223,11 @@
         const listsOptions = document.querySelectorAll('.options-list');
 
         // sorting Logic
+        // gather sorting options from the drop down
         const sortingOptions = document.querySelectorAll('.sorting-option');
         sortingOptions.forEach((option) => {
             option.addEventListener("click", () => {
-                // Remove the 'sorting' class from all elements except the clicked one
+                // Remove the 'sorting' class from all elements except the clicked one when an option is clicked
                 sortingOptions.forEach((otherOption) => {
                     if (otherOption !== option) {
                         otherOption.classList.remove('sorting');
@@ -233,6 +235,7 @@
                 });
 
                 // Toggle the 'sorting' class on the clicked element
+                // this allows user to revert back witohut seelcting another option
                 option.classList.toggle('sorting');
                 const sortCriteria = document.querySelector('.sorting')
                 if (sortCriteria) {
@@ -241,27 +244,36 @@
             });
         });
 
+        // ====== Sorting Logic ============ //
         function sortLoopItems(id) {
-            console.log(id)
+            // sortLoopItems takes the id of the button pressed and carrys out the appropriate function bellow
 
+            // inner functions //
 
+            // SORT BY DATE function //
             const sortByDate = (a, b) => {
+                // function compares two items and returns them sorted
+                // over and over this is like bubble sort.
                 const dateA = new Date(a.querySelector('[itemprop="datePublished"]').innerText);
                 const dateB = new Date(b.querySelector('[itemprop="datePublished"]').innerText);
                 return dateA - dateB;
             };
 
-
+            // RENDER SORTED DIVS takes an array af sorted elements
+            //and replaces the existing loop with the sorted loop 
             const renderSortedDivs = (sortedDivs) => {
                 const elementorLoopContainer = document.querySelector('.elementor-loop-container');
+                // if there is no loop
                 if (!elementorLoopContainer) {
                     let val = 'not found'
                     return val
                 }
+                // else //
+                // the style div from the loop container must be saved and replaced. 
                 const styleDiv = elementorLoopContainer.querySelectorAll('style');
-                console.log(styleDiv)
                 elementorLoopContainer.innerHTML = ''; // Clear the container
-                elementorLoopContainer.appendChild(styleDiv[0]);
+                elementorLoopContainer.appendChild(styleDiv[0]); // re add the style
+                // add the sorted divs in sequence.
                 sortedDivs.forEach((div) => {
                     elementorLoopContainer.appendChild(div);
                 });
@@ -269,16 +281,10 @@
 
             // === SORT BY DATE === //
             if (id == 'Date') {
-                console.log('sort by date')
-                // TESTING ITEMS //
-                // loopItems.forEach((item) => {
-                //     const datePublished = item.querySelector('[itemprop="datePublished"]').innerText;
-                // })
-
-                // SORTING LOGIC //
+                // create an array of sorted divs using the inner function sortByDate
                 const sortedByDate = Array.from(loopItems).sort(sortByDate);
-                //console.log(sortedByDate)
-                console.log(renderSortedDivs(sortedByDate));
+                // render the sorted divs.
+                renderSortedDivs(sortedByDate);
 
             } else if (id == 'A-Z') {
                 console.log('Sort Aphabetically')
@@ -286,6 +292,9 @@
 
 
         }
+
+
+        // ========== FILTERS LOGIC ============ //
 
         //create a list for each filter type
         const amenitiesList = [];
