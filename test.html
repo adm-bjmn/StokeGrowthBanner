@@ -209,6 +209,7 @@
 
     <!-- JS GOES SEPARATE -->
 
+
     <script>
 
 
@@ -250,19 +251,20 @@
                 return dateA - dateB;
             };
 
+
             const renderSortedDivs = (sortedDivs) => {
                 const elementorLoopContainer = document.querySelector('.elementor-loop-container');
-                if (elementorLoopContainer) {
-                    let val = 'container found'
-                    return val
-                } else {
+                if (!elementorLoopContainer) {
                     let val = 'not found'
                     return val
                 }
-                // elementorLoopContainer.innerHTML = ''; // Clear the container
-                // sortedDivs.forEach((div) => {
-                //   elementorLoopContainer.appendChild(div);
-                // }); 
+                const styleDiv = elementorLoopContainer.querySelectorAll('style');
+                console.log(styleDiv)
+                elementorLoopContainer.innerHTML = ''; // Clear the container
+                elementorLoopContainer.appendChild(styleDiv[0]);
+                sortedDivs.forEach((div) => {
+                    elementorLoopContainer.appendChild(div);
+                });
             };
 
             // === SORT BY DATE === //
@@ -275,7 +277,7 @@
 
                 // SORTING LOGIC //
                 const sortedByDate = Array.from(loopItems).sort(sortByDate);
-                console.log(sortedByDate)
+                //console.log(sortedByDate)
                 console.log(renderSortedDivs(sortedByDate));
 
             } else if (id == 'A-Z') {
@@ -425,65 +427,7 @@
 
 
 
+
 </body>
 
 </html>
-
-
-<div data-elementor-type="loop-item" data-elementor-id="1561"
-    class="elementor elementor-1561 e-loop-item e-loop-item-1369 post-1369 enterprise_space type-enterprise_space status-publish has-post-thumbnail hentry amenities-24-7-access amenities-workspace-storage property_type-office sizes-500-sq-ft"
-    data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
-    <div class="elementor-element elementor-element-df45815 e-con-full e-flex e-con" data-id="df45815"
-        data-element_type="container" data-settings="{&quot;content_width&quot;:&quot;full&quot;}">
-        <div class="elementor-element elementor-element-687baf5 elementor-widget__width-inherit elementor-widget elementor-widget-theme-post-featured-image elementor-widget-image"
-            data-id="687baf5" data-element_type="widget" data-widget_type="theme-post-featured-image.default">
-            <div class="elementor-widget-container">
-                <img decoding="async" width="416" height="233"
-                    src="https://stokegrowthcompany.starbotsdemos.co.uk/wp-content/uploads/2023/04/SmithfieldWorks-e1683624074841.jpg"
-                    class="attachment-large size-large wp-image-1307" alt="" loading="lazy"
-                    srcset="https://stokegrowthcompany.starbotsdemos.co.uk/wp-content/uploads/2023/04/SmithfieldWorks-e1683624074841.jpg 416w, https://stokegrowthcompany.starbotsdemos.co.uk/wp-content/uploads/2023/04/SmithfieldWorks-e1683624074841-300x168.jpg 300w"
-                    sizes="(max-width: 416px) 100vw, 416px">
-            </div>
-        </div>
-        <div class="elementor-element elementor-element-ccd6dc6 elementor-widget__width-initial elementor-widget elementor-widget-theme-post-title elementor-page-title elementor-widget-heading"
-            data-id="ccd6dc6" data-element_type="widget" data-widget_type="theme-post-title.default">
-            <div class="elementor-widget-container">
-                <h1 class="elementor-heading-title elementor-size-default">This is a test</h1>
-            </div>
-        </div>
-        <div class="elementor-element elementor-element-bfa72d1 elementor-widget elementor-widget-post-info"
-            data-id="bfa72d1" data-element_type="widget" data-widget_type="post-info.default">
-            <div class="elementor-widget-container">
-                <link rel="stylesheet"
-                    href="https://stokegrowthcompany.starbotsdemos.co.uk/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css">
-                <ul class="elementor-inline-items elementor-icon-list-items elementor-post-info">
-                    <li class="elementor-icon-list-item elementor-repeater-item-7a8e4c1 elementor-inline-item"
-                        itemprop="datePublished">
-                        <span
-                            class="elementor-icon-list-text elementor-post-info__item elementor-post-info__item--type-date">
-                            May 9, 2023 </span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="elementor-element elementor-element-1a37ab9 elementor-absolute elementor-widget elementor-widget-button"
-            data-id="1a37ab9" data-element_type="widget" data-settings="{&quot;_position&quot;:&quot;absolute&quot;}"
-            data-widget_type="button.default">
-            <div class="elementor-widget-container">
-                <div class="elementor-button-wrapper">
-                    <a class="elementor-button elementor-button-link elementor-size-sm elementor-animation-grow"
-                        href="https://stokegrowthcompany.starbotsdemos.co.uk/enterprise_space/this-is-a-test/">
-                        <span class="elementor-button-content-wrapper">
-                            <span class="elementor-button-text">Read more</span>
-                        </span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="elementor-element elementor-element-dae009c e-flex e-con-boxed e-con" data-id="dae009c"
-        data-element_type="container" data-settings="{&quot;content_width&quot;:&quot;boxed&quot;}">
-        <div class="e-con-inner">
-        </div>
-    </div>
-</div>
