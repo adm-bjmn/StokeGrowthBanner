@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+
+<body>
+    <div class="banner-container">
+        <div class="filter-group">
+            <div class="filter-option">
+                <div class="select-button">
+                    <span class="button-text">Property Type</span>
+                    <span class="arrow-dwn">
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </span>
+                </div>
+                <ul class="options-list" id="property-type-list">
+                    <!-- List options will go here  -->
+                </ul>
+            </div>
+
+            <div class="filter-option">
+                <div class="select-button">
+                    <span class="button-text">Size</span>
+                    <span class="arrow-dwn">
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </span>
+                </div>
+                <ul class="options-list" id="size-list">
+                    <!-- List options will go here  -->
+                </ul>
+            </div>
+
+            <div class="filter-option">
+                <div class="select-button">
+                    <span class="button-text">Amenities</span>
+                    <span class="arrow-dwn">
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </span>
+                </div>
+                <ul class="options-list" id="amenities-list">
+                    <!-- List options will go here  -->
+                </ul>
+            </div>
+
+            <div class="filter-option">
+                <div class="select-button">
+                    <span class="button-text">Sort by</span>
+                    <span class="arrow-dwn">
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </span>
+                </div>
+                <ul class="options-list" id="sort-by-list">
+                    <!-- List options will go here  -->
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .banner-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 70px;
+            background-color: black;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            width: 100%;
+            max-width: 1340px;
+            height: 40px;
+            background-color: pink;
+            z-index: 2;
+        }
+
+        .filter-option {
+            width: 100%;
+            background-color: black;
+            border-right: solid 1px white;
+            position: relative;
+        }
+
+        .filter-option:last-child {
+            border-right: none;
+        }
+
+        .select-button {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .select-button .button-text {
+            font-size: 18px;
+            color: white;
+        }
+
+        .select-button .arrow-dwn {
+            color: white;
+            padding: 10px;
+            transition: 0.3s;
+        }
+
+        .select-button.open .arrow-dwn {
+            transform: rotate(-180deg);
+        }
+
+        .options-list {
+            position: relative;
+            background-color: black;
+            padding: 16px;
+            display: none;
+
+        }
+
+        .select-button.open~.options-list {
+            display: block;
+        }
+
+
+        .options-list .option {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            padding: 0 15px;
+            cursor: pointer;
+            transition: 0.03s;
+            border-radius: 5px;
+            height: 25px;
+            color: white;
+        }
+
+        .options-list .option:hover {
+            color: #c0c0c0;
+        }
+
+        .option .option-text {
+            font-size: 16px;
+
+        }
+
+        .option .checkbox {
+            display: flex;
+            height: 16px;
+            width: 16px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            margin-right: 12px;
+            border: solid 1.5px white;
+            transition: all 0.03s ease-in-out;
+        }
+
+        .option .checkbox:hover {
+            border: solid 1.5px #c0c0c0;
+        }
+
+        .checkbox .check-icon {
+            font-size: 11px;
+            color: #c0c0c0;
+            transform: scale(0);
+            transition: all 0.03s ease-in-out;
+
+        }
+
+        .option.ticked .check-icon {
+            transform: scale(1);
+
+
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+
+
+
+
+
+    <!-- JS GOES SEPARATE -->
+    <script>
+
+
+        // Collect all the buttons for the dropdowns
+        const selectBtn = document.querySelectorAll('.select-button');
+        loopItems = document.querySelectorAll('.enterprise_space')
+        console.log(loopItems)
+
+        listsOptions = document.querySelectorAll('.options-list');
+        console.log(listsOptions)
+
+        // Step 1: Extract classes starting with "amenities-", "property_type-", and "sizes-"
+
+        const amenitiesList = [];
+        const propertyTypeList = [];
+        const sizesList = [];
+
+        loopItems.forEach((item) => {
+            const classes = item.classList;
+            for (let i = 0; i < classes.length; i++) {
+                const className = classes[i];
+                if (className.startsWith('amenities-')) {
+                    const optionObject = {
+                        optionClass: className,
+                        optionText: className.substring('amenities-'.length).replace(/-/g, ' '),
+                    }
+                    const isOptionExists = amenitiesList.some((item) => item.optionText === optionObject.optionText);
+                    if (!isOptionExists) {
+                        amenitiesList.push(optionObject);
+
+                    }
+
+                } else if (className && className.startsWith('property_type-')) {
+                    const optionObject = {
+                        optionClass: className,
+                        optionText: className.substring('property_type-'.length).replace(/-/g, ' '),
+                    }
+                    const isOptionExists = propertyTypeList.some((item) => item.optionText === optionObject.optionText);
+                    if (!isOptionExists) {
+                        propertyTypeList.push(optionObject);
+
+                    }
+                } else if (className && className.startsWith('sizes-')) {
+                    const optionObject = {
+                        optionClass: className,
+                        optionText: className.substring('sizes-'.length).replace(/-/g, ' '),
+                    }
+                    const isOptionExists = sizesList.some((item) => item.optionText === optionObject.optionText);
+                    if (!isOptionExists) {
+                        sizesList.push(optionObject);
+
+                    }
+                }
+            }
+        });
+
+        // Create new <li> items for each filter option
+        const createOptionListItem = (option) => {
+            const li = document.createElement('li');
+            li.classList.add('option');
+            li.innerHTML = `
+      <span class="checkbox" id="${option.optionClass}">
+        <i class="fa-solid fa-check check-icon"></i>
+      </span>
+      <span class="option-text">
+        ${option.optionText}
+      </span>`;
+            return li;
+        };
+
+        // Append new <li> items to the options lists in your HTML
+        const appendOptionsToElement = (optionsList, optionItems) => {
+            const ulElement = document.getElementById(optionsList);
+            optionItems.forEach((option) => {
+                ulElement.appendChild(createOptionListItem(option));
+            });
+        };
+
+        // Call the function for each options list
+        appendOptionsToElement('property-type-list', propertyTypeList);
+        appendOptionsToElement('amenities-list', amenitiesList);
+        appendOptionsToElement('size-list', sizesList);
+        // Append other lists in a similar way (e.g., appendOptionsToElement('amenities-list', amenitiesList);)
+
+        const options = document.querySelectorAll('.option');
+
+        // ticked criteria for filtering
+        let tickedCriteria;
+
+        // for each drop down menu, add an event listener for clicks
+        selectBtn.forEach((catagory, index) => {
+            catagory.addEventListener("click", () => {
+                // if clicked add or remove a class 'open'
+                catagory.classList.toggle('open');
+            });
+        });
+
+        // for each option 
+        options.forEach((option, index) => {
+            option.addEventListener("click", () => {
+                // if clicked add or remove a class 'open'
+                option.classList.toggle('ticked');
+
+                // update tiecked criteria
+                tickedCriteria = document.querySelectorAll('.ticked')
+                console.log(tickedCriteria)
+                loopItems.forEach((item) => {
+                    item.classList.remove('hidden')
+                });
+                handleTicked(tickedCriteria)
+            });
+        });
+
+
+        function handleTicked(tickedCriteria) {
+            tickedCriteria.forEach((ticked) => {
+                const childDivs = ticked.children
+                tickedID = childDivs[0].id
+                console.log(tickedID)
+                loopItems.forEach((item) => {
+                    if (!item.classList.contains(tickedID)) {
+                        item.classList.add('hidden')
+                    }
+                });
+            })
+            // for each ticked item. if any cards in the loopitems do not contain this class then add a a class of hidden to the card
+        }
+
+
+    </script>
+
+
+
+</body>
+
+</html>
+
+
+<div data-elementor-type="loop-item" data-elementor-id="1561"
+    class="elementor elementor-1561 e-loop-item e-loop-item-1369 post-1369 enterprise_space type-enterprise_space status-publish has-post-thumbnail hentry amenities-24-7-access amenities-workspace-storage property_type-office sizes-500-sq-ft"
+    data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
+    <div class="elementor-element elementor-element-df45815 e-con-full e-flex e-con" data-id="df45815"
+        data-element_type="container" data-settings="{&quot;content_width&quot;:&quot;full&quot;}">
+        <div class="elementor-element elementor-element-687baf5 elementor-widget__width-inherit elementor-widget elementor-widget-theme-post-featured-image elementor-widget-image"
+            data-id="687baf5" data-element_type="widget" data-widget_type="theme-post-featured-image.default">
+            <div class="elementor-widget-container">
+                <img decoding="async" width="416" height="233"
+                    src="https://stokegrowthcompany.starbotsdemos.co.uk/wp-content/uploads/2023/04/SmithfieldWorks-e1683624074841.jpg"
+                    class="attachment-large size-large wp-image-1307" alt="" loading="lazy"
+                    srcset="https://stokegrowthcompany.starbotsdemos.co.uk/wp-content/uploads/2023/04/SmithfieldWorks-e1683624074841.jpg 416w, https://stokegrowthcompany.starbotsdemos.co.uk/wp-content/uploads/2023/04/SmithfieldWorks-e1683624074841-300x168.jpg 300w"
+                    sizes="(max-width: 416px) 100vw, 416px">
+            </div>
+        </div>
+        <div class="elementor-element elementor-element-ccd6dc6 elementor-widget__width-initial elementor-widget elementor-widget-theme-post-title elementor-page-title elementor-widget-heading"
+            data-id="ccd6dc6" data-element_type="widget" data-widget_type="theme-post-title.default">
+            <div class="elementor-widget-container">
+                <h1 class="elementor-heading-title elementor-size-default">This is a test</h1>
+            </div>
+        </div>
+        <div class="elementor-element elementor-element-bfa72d1 elementor-widget elementor-widget-post-info"
+            data-id="bfa72d1" data-element_type="widget" data-widget_type="post-info.default">
+            <div class="elementor-widget-container">
+                <link rel="stylesheet"
+                    href="https://stokegrowthcompany.starbotsdemos.co.uk/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css">
+                <ul class="elementor-inline-items elementor-icon-list-items elementor-post-info">
+                    <li class="elementor-icon-list-item elementor-repeater-item-7a8e4c1 elementor-inline-item"
+                        itemprop="datePublished">
+                        <span
+                            class="elementor-icon-list-text elementor-post-info__item elementor-post-info__item--type-date">
+                            May 9, 2023 </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="elementor-element elementor-element-1a37ab9 elementor-absolute elementor-widget elementor-widget-button"
+            data-id="1a37ab9" data-element_type="widget" data-settings="{&quot;_position&quot;:&quot;absolute&quot;}"
+            data-widget_type="button.default">
+            <div class="elementor-widget-container">
+                <div class="elementor-button-wrapper">
+                    <a class="elementor-button elementor-button-link elementor-size-sm elementor-animation-grow"
+                        href="https://stokegrowthcompany.starbotsdemos.co.uk/enterprise_space/this-is-a-test/">
+                        <span class="elementor-button-content-wrapper">
+                            <span class="elementor-button-text">Read more</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="elementor-element elementor-element-dae009c e-flex e-con-boxed e-con" data-id="dae009c"
+        data-element_type="container" data-settings="{&quot;content_width&quot;:&quot;boxed&quot;}">
+        <div class="e-con-inner">
+        </div>
+    </div>
+</div>
