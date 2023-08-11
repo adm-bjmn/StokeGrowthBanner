@@ -1,16 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-</head>
-
-<body>
-    <div class="banner-container">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<div class="banner-container">
         <div class="filter-group">
             <div class="filter-option">
                 <div class="select-button">
@@ -50,7 +39,7 @@
 
             <div class="filter-option">
                 <div class="select-button">
-                    <span class="button-text">Sort by:</span>
+                    <span class="button-text">Sort by</span>
                     <span class="arrow-dwn">
                         <i class="fa-solid fa-chevron-down"></i>
                     </span>
@@ -58,12 +47,20 @@
                 <ul class="options-list" id="sort-by-list">
                     <!-- List options will go here  -->
                     <li class="sorting-option" id="A-Z">
-                        <span class="checkbox">
-                            <i class="fa-solid fa-check check-icon"></i>
-                        </span>
-                        <span class="option-text">
-                            A - Z
-                        </span>
+                    <span class="checkbox">
+                        <i class="fa-solid fa-check check-icon"></i>
+                      </span>
+                      <span class="sorting-option-text">
+                        A - Z
+                      </span>
+                    </li>
+                    <li class="sorting-option" id="Date">
+                    <span class="checkbox">
+                        <i class="fa-solid fa-check check-icon"></i>
+                      </span>
+                      <span class="sorting-option-text">
+                        Date Posted
+                      </span>
                     </li>
                 </ul>
             </div>
@@ -84,7 +81,7 @@
             justify-content: center;
             align-items: center;
             width: 100%;
-            height: 70px;
+            height: 40px;
             background-color: black;
         }
 
@@ -94,7 +91,7 @@
             justify-content: space-evenly;
             width: 100%;
             max-width: 1340px;
-            height: 40px;
+            height: 50px;
             background-color: pink;
             z-index: 2;
         }
@@ -147,7 +144,8 @@
         }
 
 
-        .options-list .option {
+        .options-list .option,
+        .options-list .sorting-option{
             display: flex;
             align-items: center;
             list-style: none;
@@ -158,17 +156,21 @@
             height: 25px;
             color: white;
         }
+  
 
-        .options-list .option:hover {
+        .options-list .option:hover,
+        .options-list .sorting-option:hover{
             color: #c0c0c0;
         }
 
-        .option .option-text {
+        .option .option-text,
+        .option .sorting-option-text{
             font-size: 16px;
 
         }
 
-        .option .checkbox {
+        .option .checkbox,
+        .sorting-option .checkbox{
             display: flex;
             height: 16px;
             width: 16px;
@@ -180,7 +182,8 @@
             transition: all 0.03s ease-in-out;
         }
 
-        .option .checkbox:hover {
+        .option .checkbox:hover,
+        .sorting-option .checkbox:hover{
             border: solid 1.5px #c0c0c0;
         }
 
@@ -192,17 +195,20 @@
 
         }
 
-        .option.ticked .check-icon {
+        .option.ticked .check-icon{
             transform: scale(1);
 
-
         }
-
-        .hidden {
+        
+        .sorting-option.sorting .check-icon{
+            transform: scale(1);
+        }
+        
+        
+        .hidden{
             display: none;
         }
     </style>
-
 
 
 
@@ -218,10 +224,10 @@
         const selectBtn = document.querySelectorAll('.select-button');
         // collect all the loop items to be included in filter
         const loopItems = document.querySelectorAll('.enterprise_space')
-
+        
         // collect all of the options list to populate with options
         const listsOptions = document.querySelectorAll('.options-list');
-
+        
         // sorting Logic
         // gather sorting options from the drop down
         const sortingOptions = document.querySelectorAll('.sorting-option');
@@ -238,18 +244,18 @@
                 // this allows user to revert back witohut seelcting another option
                 option.classList.toggle('sorting');
                 const sortCriteria = document.querySelector('.sorting')
-                if (sortCriteria) {
+                if(sortCriteria){
                     sortLoopItems(sortCriteria.id)
                 }
             });
         });
-
+        
         // ====== Sorting Logic ============ //
         function sortLoopItems(id) {
             // sortLoopItems takes the id of the button pressed and carrys out the appropriate function bellow
-
+            
             // inner functions //
-
+            
             // SORT BY DATE function //
             const sortByDate = (a, b) => {
                 // function compares two items and returns them sorted
@@ -257,14 +263,14 @@
                 const dateA = new Date(a.querySelector('[itemprop="datePublished"]').innerText);
                 const dateB = new Date(b.querySelector('[itemprop="datePublished"]').innerText);
                 return dateA - dateB;
-            };
+              };
 
             // RENDER SORTED DIVS takes an array af sorted elements
             //and replaces the existing loop with the sorted loop 
-            const renderSortedDivs = (sortedDivs) => {
+              const renderSortedDivs = (sortedDivs) => {
                 const elementorLoopContainer = document.querySelector('.elementor-loop-container');
                 // if there is no loop
-                if (!elementorLoopContainer) {
+                if (!elementorLoopContainer){
                     let val = 'not found'
                     return val
                 }
@@ -275,9 +281,9 @@
                 elementorLoopContainer.appendChild(styleDiv[0]); // re add the style
                 // add the sorted divs in sequence.
                 sortedDivs.forEach((div) => {
-                    elementorLoopContainer.appendChild(div);
-                });
-            };
+                  elementorLoopContainer.appendChild(div);
+                }); 
+              };
 
             // === SORT BY DATE === //
             if (id == 'Date') {
@@ -292,15 +298,15 @@
 
 
         }
-
-
+        
+        
         // ========== FILTERS LOGIC ============ //
 
         //create a list for each filter type
         const amenitiesList = [];
         const propertyTypeList = [];
         const sizesList = [];
-
+        
         // for each loop item, inspect the class names and get any
         // relevent to the filter ie: property_type-foo and add unique 
         // values to relevant lists as objects with a human readable name the class name as is. 
@@ -321,8 +327,8 @@
                         amenitiesList.push(optionObject);
 
                     }
-
-                    // repeat for all filter criteria
+                    
+                // repeat for all filter criteria
                 } else if (className && className.startsWith('property_type-')) {
                     const optionObject = {
                         optionClass: className,
@@ -377,8 +383,8 @@
         appendOptionsToElement('property-type-list', propertyTypeList);
         appendOptionsToElement('amenities-list', amenitiesList);
         appendOptionsToElement('size-list', sizesList);
-
-
+        
+        
         const options = document.querySelectorAll('.option');
 
         // ticked criteria for filtering
@@ -411,7 +417,7 @@
             });
         });
 
-
+ 
         function handleTicked(tickedCriteria) {
             // takes tickedCriteria list and adds hidden to loop items that 
             // DONT meet the critera. 
@@ -426,12 +432,11 @@
                     }
                 });
             })
-
+            
         }
 
-
+       
     </script>
-
 
 
 
