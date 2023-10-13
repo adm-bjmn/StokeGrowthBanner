@@ -1,447 +1,495 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<div class="banner-container">
-        <div class="filter-group">
-            <div class="filter-option">
-                <div class="select-button">
-                    <span class="button-text">Property Type</span>
-                    <span class="arrow-dwn">
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </span>
-                </div>
-                <ul class="options-list" id="property-type-list">
-                    <!-- List options will go here  -->
-                </ul>
-            </div>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
 
-            <div class="filter-option">
-                <div class="select-button">
-                    <span class="button-text">Size</span>
-                    <span class="arrow-dwn">
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </span>
-                </div>
-                <ul class="options-list" id="size-list">
-                    <!-- List options will go here  -->
-                </ul>
-            </div>
-
-            <div class="filter-option">
-                <div class="select-button">
-                    <span class="button-text">Amenities</span>
-                    <span class="arrow-dwn">
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </span>
-                </div>
-                <ul class="options-list" id="amenities-list">
-                    <!-- List options will go here  -->
-                </ul>
-            </div>
-
-            <div class="filter-option">
-                <div class="select-button">
-                    <span class="button-text">Sort by</span>
-                    <span class="arrow-dwn">
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </span>
-                </div>
-                <ul class="options-list" id="sort-by-list">
-                    <!-- List options will go here  -->
-                    <li class="sorting-option" id="A-Z">
-                    <span class="checkbox">
-                        <i class="fa-solid fa-check check-icon"></i>
-                      </span>
-                      <span class="sorting-option-text">
-                        A - Z
-                      </span>
-                    </li>
-                    <li class="sorting-option" id="Date">
-                    <span class="checkbox">
-                        <i class="fa-solid fa-check check-icon"></i>
-                      </span>
-                      <span class="sorting-option-text">
-                        Date Posted
-                      </span>
-                    </li>
-                </ul>
-            </div>
-
+  <body>
+    <div class="banner-container">
+      <div class="filter-group">
+        <div class="filter-option">
+          <div class="select-button">
+            <span class="button-text">Property Type</span>
+            <span class="arrow-dwn">
+              <i class="fa-solid fa-chevron-down"></i>
+            </span>
+          </div>
+          <ul class="options-list" id="property-type-list">
+            <!-- List options will go here  -->
+          </ul>
         </div>
+
+        <div class="filter-option">
+          <div class="select-button">
+            <span class="button-text">Size</span>
+            <span class="arrow-dwn">
+              <i class="fa-solid fa-chevron-down"></i>
+            </span>
+          </div>
+          <ul class="options-list" id="size-list">
+            <!-- List options will go here  -->
+          </ul>
+        </div>
+
+        <div class="filter-option">
+          <div class="select-button">
+            <span class="button-text">Amenities</span>
+            <span class="arrow-dwn">
+              <i class="fa-solid fa-chevron-down"></i>
+            </span>
+          </div>
+          <ul class="options-list" id="amenities-list">
+            <!-- List options will go here  -->
+          </ul>
+        </div>
+
+        <div class="filter-option">
+          <div class="select-button">
+            <span class="button-text">Sort by</span>
+            <span class="arrow-dwn">
+              <i class="fa-solid fa-chevron-down"></i>
+            </span>
+          </div>
+          <ul class="options-list" id="sort-by-list">
+            <li class="sorting-option" id="A-Z">
+              <span class="checkbox">
+                <i class="fa-solid fa-check check-icon"></i>
+              </span>
+              <span class="sorting-option-text"> A - Z </span>
+            </li>
+            <li class="sorting-option" id="Date">
+              <span class="checkbox">
+                <i class="fa-solid fa-check check-icon"></i>
+              </span>
+              <span class="sorting-option-text"> Date Posted </span>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
 
-
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        .banner-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 40px;
-            background-color: black;
-        }
+      .banner-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 40px;
+        background-color: black;
+      }
 
-        .filter-group {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-evenly;
-            width: 100%;
-            max-width: 1340px;
-            height: 50px;
-            background-color: pink;
-            z-index: 2;
+      .filter-group {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        width: 100%;
+        max-width: 1340px;
+        height: 50px;
+        z-index: 2;
+      }
+
+      .filter-option {
+        width: 100%;
+        background-color: black;
+        border-right: solid 1px white;
+        position: relative;
+      }
+
+      .filter-option:last-child {
+        border-right: none;
+      }
+
+      .select-button {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+
+      @media only screen and (max-width: 767px) {
+        .select-button {
+          flex-direction: column;
+          text-align: center;
         }
 
         .filter-option {
-            width: 100%;
-            background-color: black;
-            border-right: solid 1px white;
-            position: relative;
+          padding-right: 5px;
         }
-
-        .filter-option:last-child {
-            border-right: none;
-        }
-
-        .select-button {
-            display: flex;
-            width: 100%;
-            height: 100%;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-        }
-
         .select-button .button-text {
-            font-size: 18px;
-            color: white;
+          font-size: 12px !important;
         }
-
         .select-button .arrow-dwn {
-            color: white;
-            padding: 10px;
-            transition: 0.3s;
+          padding: 0px !important;
         }
-
-        .select-button.open .arrow-dwn {
-            transform: rotate(-180deg);
-        }
-
-        .options-list {
-            position: relative;
-            background-color: black;
-            padding: 16px;
-            display: none;
-
-        }
-
-        .select-button.open~.options-list {
-            display: block;
-        }
-
-
-        .options-list .option,
-        .options-list .sorting-option{
-            display: flex;
-            align-items: center;
-            list-style: none;
-            padding: 0 15px;
-            cursor: pointer;
-            transition: 0.03s;
-            border-radius: 5px;
-            height: 25px;
-            color: white;
-        }
-  
-
-        .options-list .option:hover,
-        .options-list .sorting-option:hover{
-            color: #c0c0c0;
-        }
-
         .option .option-text,
-        .option .sorting-option-text{
-            font-size: 16px;
-
+        .option .sorting-option-text {
+          font-size: 14px;
         }
+      }
 
-        .option .checkbox,
-        .sorting-option .checkbox{
-            display: flex;
-            height: 16px;
-            width: 16px;
-            align-items: center;
-            justify-content: center;
-            border-radius: 4px;
-            margin-right: 12px;
-            border: solid 1.5px white;
-            transition: all 0.03s ease-in-out;
-        }
+      .select-button .button-text {
+        font-size: 18px;
+        color: white;
+      }
 
-        .option .checkbox:hover,
-        .sorting-option .checkbox:hover{
-            border: solid 1.5px #c0c0c0;
-        }
+      .select-button .arrow-dwn {
+        color: white;
+        padding: 10px;
+        transition: 0.3s;
+      }
 
-        .checkbox .check-icon {
-            font-size: 11px;
-            color: #c0c0c0;
-            transform: scale(0);
-            transition: all 0.03s ease-in-out;
+      .select-button.open .arrow-dwn {
+        transform: rotate(-180deg);
+      }
 
-        }
+      .options-list {
+        position: relative;
+        background-color: black;
+        padding: 16px;
+        display: none;
+      }
 
-        .option.ticked .check-icon{
-            transform: scale(1);
+      .select-button.open ~ .options-list {
+        display: block;
+        z-index: 50;
+      }
 
-        }
-        
-        .sorting-option.sorting .check-icon{
-            transform: scale(1);
-        }
-        
-        
-        .hidden{
-            display: none;
-        }
+      .options-list .option,
+      .options-list .sorting-option {
+        display: flex;
+        align-items: center;
+        list-style: none;
+        padding: 2px 15px;
+        cursor: pointer;
+        transition: 0.03s;
+        border-radius: 5px;
+        height: auto;
+        color: white;
+      }
+
+      .options-list .option:hover,
+      .options-list .sorting-option:hover {
+        color: #c0c0c0;
+      }
+
+      .option .option-text,
+      .option .sorting-option-text {
+        font-size: 16px;
+      }
+
+      .option .checkbox,
+      .sorting-option .checkbox {
+        display: flex;
+        height: 16px;
+        width: 16px;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        margin-right: 12px;
+        border: solid 1.5px white;
+        transition: all 0.03s ease-in-out;
+      }
+
+      .option .checkbox:hover,
+      .sorting-option .checkbox:hover {
+        border: solid 1.5px #c0c0c0;
+      }
+
+      .checkbox .check-icon {
+        font-size: 11px;
+        color: #c0c0c0;
+        transform: scale(0);
+        transition: all 0.03s ease-in-out;
+      }
+
+      .option.ticked .check-icon {
+        transform: scale(1);
+      }
+
+      .sorting-option.sorting .check-icon {
+        transform: scale(1);
+      }
+
+      .hidden {
+        display: none;
+      }
     </style>
-
-
-
 
     <!-- JS GOES SEPARATE -->
 
-
-
     <script>
+      // Collect all the buttons for the dropdowns
+      const selectBtn = document.querySelectorAll(".select-button");
 
+      // collect all the loop items to be included in filter
+      const loopItems = document.querySelectorAll(".enterprise_space");
 
-        // Collect all the buttons for the dropdowns
-        const selectBtn = document.querySelectorAll('.select-button');
-        // collect all the loop items to be included in filter
-        const loopItems = document.querySelectorAll('.enterprise_space')
-        
-        // collect all of the options list to populate with options
-        const listsOptions = document.querySelectorAll('.options-list');
-        
-        // sorting Logic
-        // gather sorting options from the drop down
-        const sortingOptions = document.querySelectorAll('.sorting-option');
-        sortingOptions.forEach((option) => {
-            option.addEventListener("click", () => {
-                // Remove the 'sorting' class from all elements except the clicked one when an option is clicked
-                sortingOptions.forEach((otherOption) => {
-                    if (otherOption !== option) {
-                        otherOption.classList.remove('sorting');
-                    }
-                });
+      // collect all of the options list to populate with options
+      const listsOptions = document.querySelectorAll(".options-list");
 
-                // Toggle the 'sorting' class on the clicked element
-                // this allows user to revert back witohut seelcting another option
-                option.classList.toggle('sorting');
-                const sortCriteria = document.querySelector('.sorting')
-                if(sortCriteria){
-                    sortLoopItems(sortCriteria.id)
-                }
-            });
-        });
-        
-        // ====== Sorting Logic ============ //
-        function sortLoopItems(id) {
-            // sortLoopItems takes the id of the button pressed and carrys out the appropriate function bellow
-            
-            // inner functions //
-            
-            // SORT BY DATE function //
-            const sortByDate = (a, b) => {
-                // function compares two items and returns them sorted
-                // over and over this is like bubble sort.
-                const dateA = new Date(a.querySelector('[itemprop="datePublished"]').innerText);
-                const dateB = new Date(b.querySelector('[itemprop="datePublished"]').innerText);
-                return dateA - dateB;
-              };
-
-            // RENDER SORTED DIVS takes an array af sorted elements
-            //and replaces the existing loop with the sorted loop 
-              const renderSortedDivs = (sortedDivs) => {
-                const elementorLoopContainer = document.querySelector('.elementor-loop-container');
-                // if there is no loop
-                if (!elementorLoopContainer){
-                    let val = 'not found'
-                    return val
-                }
-                // else //
-                // the style div from the loop container must be saved and replaced. 
-                const styleDiv = elementorLoopContainer.querySelectorAll('style');
-                elementorLoopContainer.innerHTML = ''; // Clear the container
-                elementorLoopContainer.appendChild(styleDiv[0]); // re add the style
-                // add the sorted divs in sequence.
-                sortedDivs.forEach((div) => {
-                  elementorLoopContainer.appendChild(div);
-                }); 
-              };
-
-            // === SORT BY DATE === //
-            if (id == 'Date') {
-                // create an array of sorted divs using the inner function sortByDate
-                const sortedByDate = Array.from(loopItems).sort(sortByDate);
-                // render the sorted divs.
-                renderSortedDivs(sortedByDate);
-
-            } else if (id == 'A-Z') {
-                console.log('Sort Aphabetically')
+      // sorting Logic
+      // gather sorting options from the drop down
+      const sortingOptions = document.querySelectorAll(".sorting-option");
+      sortingOptions.forEach((option) => {
+        option.addEventListener("click", () => {
+          // Remove the 'sorting' class from all elements except the clicked one when an option is clicked
+          sortingOptions.forEach((otherOption) => {
+            if (otherOption !== option) {
+              otherOption.classList.remove("sorting");
             }
+          });
 
+          // Toggle the 'sorting' class on the clicked element
+          // this allows user to revert back witohut seelcting another option
+          option.classList.toggle("sorting");
+          const sortCriteria = document.querySelector(".sorting");
+          if (sortCriteria) {
+            sortLoopItems(sortCriteria.id);
+          }
+        });
+      });
 
+      let sortByDateAscending = true;
+      let sortByTitleAscending = true;
+      // ====== Sorting Logic ============ //
+      function sortLoopItems(id) {
+        // sortLoopItems takes the id of the button pressed and carrys out the appropriate function below
+
+        // inner functions //
+
+        // SORT BY DATE function //
+        const sortByDate = (a, b) => {
+          // function compares two items and returns them sorted
+          // over and over this is like bubble sort.
+          const dateA = new Date(
+            a.querySelector('[itemprop="datePublished"]').innerText
+          );
+          const dateB = new Date(
+            b.querySelector('[itemprop="datePublished"]').innerText
+          );
+          return sortByDateAscending ? dateA - dateB : dateB - dateA;
+        };
+
+        // SORT BY TITLE function (A-Z) //
+        const sortByTitle = (a, b) => {
+          const titleA = a
+            .querySelector('[id="building-name"]')
+            .innerText.trim();
+          const titleB = b
+            .querySelector('[id="building-name"]')
+            .innerText.trim();
+          const comparison = titleA.localeCompare(titleB, undefined, {
+            sensitivity: "base",
+          }); // Case-insensitive comparison
+          return sortByTitleAscending ? comparison : -comparison;
+        };
+
+        // RENDER SORTED DIVS takes an array af sorted elements
+        //and replaces the existing loop with the sorted loop
+        const renderSortedDivs = (sortedDivs) => {
+          const elementorLoopContainer = document.querySelector(
+            ".elementor-loop-container"
+          );
+          // if there is no loop
+          if (!elementorLoopContainer) {
+            let val = "not found";
+            return val;
+          }
+          // else //
+          // the style div from the loop container must be saved and replaced.
+          const styleDiv = elementorLoopContainer.querySelectorAll("style");
+          elementorLoopContainer.innerHTML = ""; // Clear the container
+          elementorLoopContainer.appendChild(styleDiv[0]); // re add the style
+          // add the sorted divs in sequence.
+          sortedDivs.forEach((div) => {
+            elementorLoopContainer.appendChild(div);
+          });
+        };
+
+        // === SORT BY DATE === //
+        if (id == "Date") {
+          // create an array of sorted divs using the inner function sortByDate
+          //  sortByDateAscending = !sortByDateAscending;
+          const sortedByDate = Array.from(loopItems).sort(sortByDate);
+          // render the sorted divs.
+          renderSortedDivs(sortedByDate);
+        } else if (id == "A-Z") {
+          const sortedByTitle = Array.from(loopItems).sort(sortByTitle);
+          renderSortedDivs(sortedByTitle);
+          // sortByTitleAscending = !sortByTitleAscending;
         }
-        
-        
-        // ========== FILTERS LOGIC ============ //
+      }
 
-        //create a list for each filter type
-        const amenitiesList = [];
-        const propertyTypeList = [];
-        const sizesList = [];
-        
-        // for each loop item, inspect the class names and get any
-        // relevent to the filter ie: property_type-foo and add unique 
-        // values to relevant lists as objects with a human readable name the class name as is. 
-        loopItems.forEach((item) => {
-            // go over each class name and if it starts with the filter Reference then grab the suffix
-            const classes = item.classList;
-            for (let i = 0; i < classes.length; i++) {
-                const className = classes[i];
-                if (className.startsWith('amenities-')) {
-                    // create object
-                    const optionObject = {
-                        optionClass: className,
-                        optionText: className.substring('amenities-'.length).replace(/-/g, ' '),
-                    }
-                    // check if object exists in array if not then add it.
-                    const isOptionExists = amenitiesList.some((item) => item.optionText === optionObject.optionText);
-                    if (!isOptionExists) {
-                        amenitiesList.push(optionObject);
+      // ========== FILTERS LOGIC ============ //
 
-                    }
-                    
-                // repeat for all filter criteria
-                } else if (className && className.startsWith('property_type-')) {
-                    const optionObject = {
-                        optionClass: className,
-                        optionText: className.substring('property_type-'.length).replace(/-/g, ' '),
-                    }
-                    const isOptionExists = propertyTypeList.some((item) => item.optionText === optionObject.optionText);
-                    if (!isOptionExists) {
-                        propertyTypeList.push(optionObject);
+      //create a list for each filter type
+      const amenitiesList = [];
+      const propertyTypeList = [];
+      const sizesList = [];
 
-                    }
-                } else if (className && className.startsWith('sizes-')) {
-                    const optionObject = {
-                        optionClass: className,
-                        optionText: className.substring('sizes-'.length).replace(/-/g, ' '),
-                    }
-                    const isOptionExists = sizesList.some((item) => item.optionText === optionObject.optionText);
-                    if (!isOptionExists) {
-                        sizesList.push(optionObject);
-
-                    }
-                }
+      // for each loop item, inspect the class names and get any
+      // relevent to the filter ie: property_type-foo and add unique
+      // values to relevant lists as objects with a human readable name the class name as is.
+      loopItems.forEach((item) => {
+        // go over each class name and if it starts with the filter Reference then grab the suffix
+        const classes = item.classList;
+        for (let i = 0; i < classes.length; i++) {
+          const className = classes[i];
+          if (className.startsWith("amenities-")) {
+            // create object
+            const optionObject = {
+              optionClass: className,
+              optionText: className
+                .substring("amenities-".length)
+                .replace(/-/g, " "),
+            };
+            // check if object exists in array if not then add it.
+            const isOptionExists = amenitiesList.some(
+              (item) => item.optionText === optionObject.optionText
+            );
+            if (!isOptionExists) {
+              amenitiesList.push(optionObject);
             }
-        });
 
+            // repeat for all filter criteria
+          } else if (className && className.startsWith("property_type-")) {
+            const optionObject = {
+              optionClass: className,
+              optionText: className
+                .substring("property_type-".length)
+                .replace(/-/g, " "),
+            };
+            const isOptionExists = propertyTypeList.some(
+              (item) => item.optionText === optionObject.optionText
+            );
+            if (!isOptionExists) {
+              propertyTypeList.push(optionObject);
+            }
+          } else if (className && className.startsWith("sizes-")) {
+            const optionObject = {
+              optionClass: className,
+              optionText: className
+                .substring("sizes-".length)
+                .replace(/-/g, " "),
+            };
+            const isOptionExists = sizesList.some(
+              (item) => item.optionText === optionObject.optionText
+            );
+            if (!isOptionExists) {
+              sizesList.push(optionObject);
+            }
+          }
+        }
+      });
 
-        // Create new <li> items for each filter option
-        const createOptionListItem = (option) => {
-            // this fuction takes an option object and creates a list item with
-            // appropriate id and display text.
-            const li = document.createElement('li');
-            li.classList.add('option');
-            li.innerHTML = `
+      // Create new <li> items for each filter option
+      const createOptionListItem = (option) => {
+        // this fuction takes an option object and creates a list item with
+        // appropriate id and display text.
+        const li = document.createElement("li");
+        li.classList.add("option");
+        li.innerHTML = `
       <span class="checkbox" id="${option.optionClass}">
         <i class="fa-solid fa-check check-icon"></i>
       </span>
       <span class="option-text">
         ${option.optionText}
       </span>`;
-            return li;
-        };
+        return li;
+      };
 
-        // Append new <li> items to the options lists in HTML
-        const appendOptionsToElement = (optionsList, optionItems) => {
-            //takes the id of the list html element and the list of objects
-            const ulElement = document.getElementById(optionsList);
-            optionItems.forEach((option) => {
-                ulElement.appendChild(createOptionListItem(option));
-            });
-        };
-
-        // Call the function for each options list
-        appendOptionsToElement('property-type-list', propertyTypeList);
-        appendOptionsToElement('amenities-list', amenitiesList);
-        appendOptionsToElement('size-list', sizesList);
-        
-        
-        const options = document.querySelectorAll('.option');
-
-        // ticked criteria for filtering
-        let tickedCriteria;
-
-        // for each drop down menu, add an event listener for clicks
-        selectBtn.forEach((catagory, index) => {
-            catagory.addEventListener("click", () => {
-                // if clicked add or remove a class 'open'
-                // open shows the child element
-                catagory.classList.toggle('open');
-            });
+      // Append new <li> items to the options lists in HTML
+      const appendOptionsToElement = (optionsList, optionItems) => {
+        //takes the id of the list html element and the list of objects
+        const ulElement = document.getElementById(optionsList);
+        optionItems.forEach((option) => {
+          ulElement.appendChild(createOptionListItem(option));
         });
+      };
 
-        // for each option if clicked then add it to a list of filter criteria
-        options.forEach((option, index) => {
-            option.addEventListener("click", () => {
-                // if clicked add or remove a class 'ticked'
-                option.classList.toggle('ticked');
+      // Call the function for each options list
+      appendOptionsToElement("property-type-list", propertyTypeList);
+      appendOptionsToElement("amenities-list", amenitiesList);
+      appendOptionsToElement("size-list", sizesList);
 
-                // update ticked criteria
-                tickedCriteria = document.querySelectorAll('.ticked')
-                // if someone clicks an option the slate is whipped clean
-                // to ensure each pass is accurate.
-                loopItems.forEach((item) => {
-                    item.classList.remove('hidden')
-                });
-                // re add hidden class based on new list
-                handleTicked(tickedCriteria)
-            });
+      const options = document.querySelectorAll(".option");
+
+      // ticked criteria for filtering
+      let tickedCriteria;
+
+      // for each drop down menu, add an event listener for clicks
+      selectBtn.forEach((catagory, index) => {
+        catagory.addEventListener("click", () => {
+          // if clicked add or remove a class 'open'
+          // open shows the child element
+          catagory.classList.toggle("open");
         });
+      });
 
- 
-        function handleTicked(tickedCriteria) {
-            // takes tickedCriteria list and adds hidden to loop items that 
-            // DONT meet the critera. 
-            tickedCriteria.forEach((ticked) => {
-                const childDivs = ticked.children
-                tickedID = childDivs[0].id
-                console.log(tickedID)
-                // for each ticked item. if any cards in the loopitems do not contain this class then add a a class of hidden to the card
-                loopItems.forEach((item) => {
-                    if (!item.classList.contains(tickedID)) {
-                        item.classList.add('hidden')
-                    }
-                });
-            })
-            
+      // for each option if clicked then add it to a list of filter criteria
+      options.forEach((option, index) => {
+        option.addEventListener("click", () => {
+          // if clicked add or remove a class 'ticked'
+          option.classList.toggle("ticked");
+
+          // update ticked criteria
+          tickedCriteria = document.querySelectorAll(".ticked");
+          // if someone clicks an option the slate is whipped clean
+          // to ensure each pass is accurate.
+          loopItems.forEach((item) => {
+            item.classList.remove("hidden");
+          });
+          // re add hidden class based on new list
+          handleTicked(tickedCriteria);
+        });
+      });
+
+      function handleTicked(tickedCriteria) {
+        // takes tickedCriteria list and adds hidden to loop items that
+        // DONT meet the critera.
+        tickedCriteria.forEach((ticked) => {
+          const childDivs = ticked.children;
+          tickedID = childDivs[0].id;
+          // for each ticked item. if any cards in the loopitems do not contain this class then add a a class of hidden to the card
+          loopItems.forEach((item) => {
+            if (!item.classList.contains(tickedID)) {
+              item.classList.add("hidden");
+            }
+          });
+        });
+      }
+
+      // Close dropdowns when clicking outside of them
+      document.body.addEventListener("click", function (event) {
+        // Check if the clicked element is not inside any of the filter options
+
+        const isInsideSeletor = event.target.closest(".filter-option");
+        // if (!isInsideFilterOption){
+        //     console.log("clicked")
+        // }
+        if (!isInsideSeletor) {
+          // Close all the menus by removing the 'open' class
+          const options = document.querySelectorAll(".select-button");
+          console.log;
+          options.forEach((option) => {
+            option.classList.remove("open");
+          });
         }
-
-       
+      });
     </script>
-
-
-
-
-
-</body>
-
+  </body>
 </html>
